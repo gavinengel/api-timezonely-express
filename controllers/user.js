@@ -53,6 +53,19 @@ exports.getUser = function(req, res) {
   });
 };
 
+// Create endpoint /api/users/login/:username for GET
+exports.getUsername = function(req, res) {
+  // Use the User model to find a specific user by username
+  User.find({ username: req.user.username }, function(err, user) {
+    if (err) {
+      log({"ERROR": [__fili, err, user]})
+      res.send(err);
+    }
+
+    res.json(user);
+  });
+};
+
 // Create endpoint /api/users/:user_id for PUT
 exports.putUser = function(req, res) {
   // Use the User model to find a specific user

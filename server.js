@@ -69,6 +69,10 @@ router.route('/api/users/:user_id')
   .put(userController.putUser) // TODO authenticate
   .delete(authController.isAuthenticated, userController.deleteUser);
 
+// minimal authentication TODO improve authentication of login
+router.route('/api/users/login/:username')
+  .get(authController.isAuthenticated, userController.getUsername)
+
 // Create endpoint handlers for /clients
 router.route('/api/clients')
   .post(authController.isAuthenticated, clientController.postClients)
