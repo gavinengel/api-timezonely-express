@@ -44,8 +44,10 @@ exports.getUsers = function(req, res) {
 exports.getUser = function(req, res) {
   // Use the User model to find a specific user
   User.find({ _id: req.params.user_id }, function(err, user) {
-    if (err)
+    if (err) {
+      log({"ERROR": [__fili, err, user]})
       res.send(err);
+    }
 
     res.json(user);
   });
@@ -53,7 +55,6 @@ exports.getUser = function(req, res) {
 
 // Create endpoint /api/users/:user_id for PUT
 exports.putUser = function(req, res) {
-  console.log('updating...')
   // Use the User model to find a specific user
   User.update(
     { _id: req.params.user_id }, 
@@ -80,8 +81,10 @@ exports.putUser = function(req, res) {
 exports.deleteUser = function(req, res) {
   // Use the User model to find a specific user and remove it
   User.remove({ _id: req.params.user_id }, function(err) {
-    if (err)
+    if (err) {
+      log({"ERROR": [__fili, err]})
       res.send(err);
+    }
     res.json({ message: 'User removed from the app!' });
   });
 };

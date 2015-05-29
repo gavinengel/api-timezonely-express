@@ -23,15 +23,11 @@ exports.postTimezones = function(req, res) {
 
 // Create endpoint /api/timezones for GET
 exports.getTimezones = function(req, res) {
-  console.log(26)
   // Use the Timezone model to find all timezone
   Timezone.find({ userId: req.user._id }, function(err, timezones) {
-    console.log(27)
     if (err) res.send(err);
-    console.log(28)
 
     res.json(timezones);
-    console.log(29)
   });
 };
 
@@ -48,7 +44,6 @@ exports.getTimezone = function(req, res) {
 
 // Create endpoint /api/timezones/:timezone_id for PUT
 exports.putTimezone = function(req, res) {
-  console.log('updating...')
   // Use the Timezone model to find a specific timezone
   //Timezone.update({ userId: req.user._id, _id: req.params.timezone_id }, { quantity: req.query.quantity }, function(err, num, raw) {
   Timezone.update(
@@ -66,13 +61,10 @@ exports.putTimezone = function(req, res) {
 
 // Create endpoint /api/timezones/:timezone_id for DELETE
 exports.deleteTimezone = function(req, res) {
-  console.log('delete1')
   // Use the Timezone model to find a specific timezone and remove it
   Timezone.remove({ userId: req.user._id, _id: req.params.timezone_id }, function(err) {
     if (err)
       res.send(err);
-console.log('delete2')
     res.json({ message: 'Timezone removed from the app!' });
-    console.log('delete3')
   });
 };
