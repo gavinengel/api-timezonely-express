@@ -7,12 +7,16 @@ var UserSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
-    required: true
+    //required: true
   },
   password: {
     type: String,
     required: true
-  }
+  },
+  name: String,
+  designation: String,
+  gender: String,
+  dob: String
 });
 
 // Execute before each user.save() call

@@ -10,7 +10,6 @@ exports.postTimezones = function(req, res) {
   // Set the timezone properties that came from the POST data
   timezone.userId = req.user._id;
   timezone.city = req.query.city;
-  timezone.designation = req.query.designation;
   timezone.zonename = req.query.zonename;
   timezone.difference = req.query.difference;
 
@@ -54,24 +53,12 @@ exports.putTimezone = function(req, res) {
   //Timezone.update({ userId: req.user._id, _id: req.params.timezone_id }, { quantity: req.query.quantity }, function(err, num, raw) {
   Timezone.update(
     { _id: req.params.timezone_id }, 
-    { city: req.query.city, designation: req.query.designation, difference: req.query.difference, zonename: req.query.zonename }, 
+    { city: req.query.city, difference: req.query.difference, zonename: req.query.zonename }, 
     function(err, num, raw) {  
     if (err) {   console.log('error in updating...')
 
       res.send(err);
     }
-
-console.log('req :')
-console.log(req)
-
-console.log('req params:')
-console.log(req.params)
-
-console.log('req.query is:')
-console.log(req.query)
-
-  console.log('updating num is:')
-  console.log(num)
 
     res.json({ message: num + ' updated' });
   });

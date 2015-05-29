@@ -16,7 +16,6 @@ var clientController = require('./controllers/client');
 // Connect to the timezoneapp MongoDB
 var mongodbConnect = 'mongodb://'+config.mongodb.username + ':'+ config.mongodb.password + '@' + config.mongodb.host + ':' + config.mongodb.port + '/' + config.mongodb.db
 mongoose.connect(mongodbConnect);
-//mongoose.connect('mongodb://' + process.env.OPENSHIFT_MONGODB_DB_USERNAME + ':' + process.env.OPENSHIFT_MONGODB_DB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/' + process.env.OPENSHIFT_APP_NAME);
 
 
 // Create our Express application
@@ -63,6 +62,12 @@ router.route('/api/timezones/:timezone_id')
 router.route('/api/users')
   .post(userController.postUsers)
   .get(authController.isAuthenticated, userController.getUsers);
+
+// Create endpoint handlers for /users/:user_id
+router.route('/api/users/:user_id')
+  .get(authController.isAuthenticated, userController.getUser)
+  .put(authController.isAuthenticated, userController.putUser)
+  .delete(authController.isAuthenticated, userController.deleteUser);
 
 // Create endpoint handlers for /clients
 router.route('/api/clients')
