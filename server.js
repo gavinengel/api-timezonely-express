@@ -60,13 +60,13 @@ router.route('/api/timezones/:timezone_id')
 
 // Create endpoint handlers for /users
 router.route('/api/users')
-  .post(userController.postUsers)
+  .post(userController.postUsers) // no auth for adding user
   .get(authController.isAuthenticated, userController.getUsers);
 
 // Create endpoint handlers for /users/:user_id
 router.route('/api/users/:user_id')
   .get(authController.isAuthenticated, userController.getUser)
-  .put(authController.isAuthenticated, userController.putUser)
+  .put(userController.putUser) // TODO authenticate
   .delete(authController.isAuthenticated, userController.deleteUser);
 
 // Create endpoint handlers for /clients
